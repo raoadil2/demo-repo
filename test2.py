@@ -5,4 +5,4 @@ def quickfix_commit(message):
     subprocess.run(['git', 'commit', '-m', message], check=True)
     subprocess.run(['git', 'push'], check=True)
 
-quickfix_commit("Quick fix")
+quickfix_commit("A Quick fix")

@@ -25,7 +25,6 @@ check_git_remotes()
 
 
 
-# import subprocess
 # import requests
 # import concurrent.futures
 # import time
