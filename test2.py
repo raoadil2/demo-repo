@@ -1,18 +1,21 @@
 import subprocess
+from git import Repo
 
-def git_quickfix_commit(message):
-    try:
-        # Add changes to the index
-        subprocess.run(['git', 'add', '--all'], check=True)
+def git_quickfix(repo_path, commit_message, remote_name):
+    # Initialize the Git repository
+    repo = Repo(repo_path)
+    repo.git.add(all=True)  # Stage all changes
 
-        # Commit changes with the specified message
-        subprocess.run(['git', 'commit', '-m', message], check=True)
+    # Commit the changes with the specified message
+    repo.index.commit(commit_message)
 
-        # Push changes to the remote repository
-        subprocess.run(['git', 'push'], check=True)
+    # Push the changes to the remote repository
+    origin = repo.remote(name=remote_name)
+    origin.push()
+    
+if __name__ == "__main__":
+    repo_path = "."
+    commit_message = "quick fix"
+    remote_name = "origin"
 
-        print(f"Git quickfix commit successful with message: '{message}'")
-    except subprocess.CalledProcessError as e:
-        print(f"Git quickfix commit failed: {e}")
-
-git_quickfix_commit("Quick fix for issue #123")
+    git_quickfix(repo_path, commit_message, remote_name)
